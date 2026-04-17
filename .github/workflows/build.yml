@@ -8,8 +8,8 @@ on:
 
 jobs:
   mingw-linux:
-    name: MinGW-w64 (Ubuntu)
-    runs-on: ubuntu-latest
+    name: MinGW-w64 (Ubuntu 24.04)
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
@@ -38,7 +38,7 @@ jobs:
             -G Ninja
 
       - name: Build
-        run: cmake --build dll/build --parallel
+        run: cmake --build dll/build --parallel --verbose
 
       - name: Strip DLL
         run: x86_64-w64-mingw32-strip --strip-unneeded dll/build/inspector.dll
