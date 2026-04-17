@@ -22,6 +22,14 @@ jobs:
             cmake \
             ninja-build
 
+      - name: Select posix thread model for MinGW
+        # std::thread / std::mutex requires the posix thread runtime. Ubuntu
+        # ships both win32 and posix variants; force posix explicitly.
+        run: |
+          sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
+          sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
+          x86_64-w64-mingw32-g++ --version
+
       - name: Configure
         run: |
           cmake -S dll -B dll/build \
